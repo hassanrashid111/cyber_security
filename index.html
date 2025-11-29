@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberGuard | Home</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- 
+      THEME TOGGLE HACK 
+      This checkbox controls the theme via CSS sibling selectors in style.css.
+      It must be placed before the .page-wrapper.
+    -->
+    <input type="checkbox" id="theme-toggle">
+
+    <div class="page-wrapper">
+        <!-- Navigation -->
+        <header>
+            <nav>
+                <div class="logo">CYBER<span style="color: var(--text-primary)">GUARD</span></div>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="login.html">Login</a></li>
+                    <li><a href="devices.html">Devices</a></li>
+                    <li><a href="methods.html">Methods</a></li>
+                    <li><a href="protection.html">Protection</a></li>
+                    <li>
+                        <label for="theme-toggle" class="toggle-label"></label>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <section class="hero">
+                <div class="hero-text">
+                    <h1>Secure Your <br><span>Digital World</span></h1>
+                    <p>
+                        Welcome to the future of cybersecurity education. Explore the latest hacking devices, 
+                        understand attack methods, and learn how to protect your digital identity.
+                    </p>
+                    <a href="devices.html" class="btn btn-filled">Explore Devices</a>
+                </div>
+
+                <div class="hero-image">
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop" alt="Cyber Security">
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <p>Created by: <span>Hassan Rashid, Kamel Basher, Mohamed Hossam</span></p>
+        </footer>
+    </div>
+</body>
+</html>

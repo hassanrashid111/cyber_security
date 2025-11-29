@@ -1,0 +1,466 @@
+/* 
+  Project: Corporate Cyber - Cybersecurity Website
+  Theme: Dark Mode Default / Light Mode Toggle
+  Constraint: Pure HTML/CSS (No JS)
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+  /* Dark Mode Variables (Default) */
+  --bg-primary: #0a192f;
+  --bg-secondary: #112240;
+  --text-primary: #ccd6f6;
+  --text-secondary: #8892b0;
+  --accent-color: #64ffda;
+  /* Cyan */
+  --accent-hover: #4ecdc4;
+  --card-bg: rgba(17, 34, 64, 0.7);
+  --nav-bg: rgba(10, 25, 47, 0.95);
+  --shadow: 0 10px 30px -10px rgba(2, 12, 27, 0.7);
+  --border-radius: 10px;
+  --transition: all 0.3s ease-in-out;
+}
+
+/* Reset & Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  transition: var(--transition);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
+}
+
+ul {
+  list-style: none;
+}
+
+/* =========================================
+   THEME TOGGLE LOGIC (CSS Checkbox Hack)
+   ========================================= */
+/* Hide the actual checkbox */
+#theme-toggle {
+  display: none;
+}
+
+/* 
+   When checkbox is checked, target the sibling .page-wrapper 
+   and override CSS variables for Light Mode 
+*/
+#theme-toggle:checked~.page-wrapper {
+  --bg-primary: #f0f2f5;
+  --bg-secondary: #ffffff;
+  --text-primary: #1d3557;
+  --text-secondary: #457b9d;
+  --accent-color: #0077b6;
+  /* Darker Blue for Light Mode */
+  --accent-hover: #023e8a;
+  --card-bg: rgba(255, 255, 255, 0.9);
+  --nav-bg: rgba(240, 242, 245, 0.95);
+  --shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.1);
+}
+
+/* The Page Wrapper handles the variable scope */
+.page-wrapper {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition);
+}
+
+/* =========================================
+   NAVBAR
+   ========================================= */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--nav-bg);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 5%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent-color);
+  letter-spacing: 1px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-links a {
+  font-weight: 500;
+  color: var(--text-primary);
+  position: relative;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--accent-color);
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -5px;
+  left: 0;
+  background-color: var(--accent-color);
+  transition: var(--transition);
+}
+
+.nav-links a:hover::after,
+.nav-links a.active::after {
+  width: 100%;
+}
+
+/* Toggle Button Style */
+.toggle-label {
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--accent-color);
+  border-radius: 20px;
+  font-size: 0.8rem;
+  color: var(--accent-color);
+  transition: var(--transition);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.toggle-label:hover {
+  background-color: rgba(100, 255, 218, 0.1);
+}
+
+.toggle-label::after {
+  content: '☀ Light';
+}
+
+/* Change text based on state */
+#theme-toggle:checked~.page-wrapper .toggle-label::after {
+  content: '☾ Dark';
+}
+
+/* =========================================
+   MAIN CONTENT & HERO
+   ========================================= */
+main {
+  flex: 1;
+  padding: 2rem 5%;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+.hero {
+  display: flex;
+  /* خليناها صف عشان يجوا جنب بعض */
+  flex-direction: row; 
+  justify-content: space-between;
+  align-items: center;
+  min-height: 80vh;
+  animation: fadeIn 1s ease-in;
+  gap: 2rem; /* مسافة بين النص والصورة */
+}
+
+/* تنسيق الصورة الطايرة */
+.hero-image img {
+  width: 400px;
+  height: 400px;
+  object-fit: cover;
+  border-radius: 50%; /* عشان تبقى دايرة */
+  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.5); /* الضل */
+  transition: all 0.4s ease-in-out;
+  animation: float 6s ease-in-out infinite; /* أنيميشن بسيط */
+}
+
+.hero-image img:hover {
+  transform: translateY(-15px) scale(1.05);
+  box-shadow: 0 30px 50px rgba(100, 255, 218, 0.3);
+}
+
+/* أنيميشن الطيران المستمر */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+.hero h1 {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  line-height: 1.1;
+  color: var(--text-primary);
+}
+
+.hero h1 span {
+  color: var(--accent-color);
+}
+
+.hero p {
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  max-width: 600px;
+  margin-bottom: 2rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.8rem 2rem;
+  background-color: transparent;
+  border: 2px solid var(--accent-color);
+  color: var(--accent-color);
+  border-radius: var(--border-radius);
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: rgba(100, 255, 218, 0.1);
+  transform: scale(1.05);
+}
+
+.btn-filled {
+  background-color: var(--accent-color);
+  color: var(--bg-primary);
+}
+
+.btn-filled:hover {
+  background-color: var(--accent-hover);
+}
+
+/* =========================================
+   GRID LAYOUT (Devices & Methods)
+   ========================================= */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+.card {
+  background-color: var(--card-bg);
+  border-radius: var(--border-radius);
+  padding: 2rem;
+  box-shadow: var(--shadow);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  border-color: var(--accent-color);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
+}
+
+.card-img-placeholder {
+  width: 100%;
+  height: 200px;
+  background-color: var(--bg-secondary);
+  border-radius: var(--border-radius);
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  font-size: 3rem;
+  overflow: hidden;
+}
+
+.card-img-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.card h3 {
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.card p {
+  color: var(--text-secondary);
+  margin-bottom: 1.5rem;
+  font-size: 0.9rem;
+}
+
+/* =========================================
+   LOGIN PAGE
+   ========================================= */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh;
+}
+
+.login-card {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  padding: 3rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  width: 100%;
+  max-width: 400px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+}
+
+.login-card h2 {
+  margin-bottom: 2rem;
+  color: var(--accent-color);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: var(--bg-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  color: var(--text-primary);
+  outline: none;
+  transition: var(--transition);
+}
+
+.form-group input:focus {
+  border-color: #00d4ff;
+  box-shadow: 0 0 8px rgba(0, 212, 255, 0.5);
+}
+
+.login-btn {
+  width: 100%;
+  margin-top: 1rem;
+}
+
+/* =========================================
+   PROTECTION PAGE
+   ========================================= */
+.protection-list {
+  list-style: none;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.protection-list li {
+  background-color: var(--card-bg);
+  margin-bottom: 1.5rem;
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  display: flex;
+  align-items: flex-start;
+  gap: 1.5rem;
+  box-shadow: var(--shadow);
+  border-left: 4px solid var(--accent-color);
+}
+
+.protection-icon {
+  font-size: 2rem;
+  color: var(--accent-color);
+}
+
+/* =========================================
+   FOOTER
+   ========================================= */
+footer {
+  text-align: center;
+  padding: 2rem;
+  background-color: var(--bg-secondary);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  margin-top: auto;
+}
+
+footer span {
+  color: var(--accent-color);
+}
+
+/* =========================================
+   ANIMATIONS
+   ========================================= */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column-reverse; /* الصورة فوق والنص تحت في الموبايل */
+    text-align: center;
+    justify-content: center;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .hero-image img {
+    width: 250px; /* تصغير الصورة في الموبايل */
+    height: 250px;
+    margin-bottom: 2rem;
+  }
+
+  /* إصلاح القائمة في الموبايل */
+  nav {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .nav-links {
+    display: flex; /* إظهار القائمة */
+    flex-direction: column; /* ترتيب العناصر تحت بعض */
+    gap: 1rem;
+    width: 100%;
+    text-align: center;
+  }
+}
